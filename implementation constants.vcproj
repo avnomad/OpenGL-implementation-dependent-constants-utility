@@ -229,7 +229,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="generating main.cpp from table.txt,main-base.cpp according to generator.awk"
-						CommandLine="@echo on&#x0D;&#x0A;awk -f generator.awk -v BASE=main-base.cpp table.txt &gt; main.cpp"
+						CommandLine="@echo on&#x0D;&#x0A;awk -f generator.awk -v BASE=main-base.cpp table.txt &gt; main.cpp&#x0D;&#x0A;"
 						AdditionalDependencies="generator.awk;main-base.cpp"
 						Outputs="main.cpp"
 					/>
@@ -240,7 +240,19 @@
 			Name="other"
 			>
 			<File
+				RelativePath=".\architecture.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\makefile"
+				>
+			</File>
+			<File
+				RelativePath=".\notes.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\readme.txt"
 				>
 			</File>
 		</Filter>
