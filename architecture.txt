@@ -1,0 +1,52 @@
+Because of the large number of the state variables that needed to be queried,
+the relative resemblance of the code that queries each one and the anticipation 
+of addition/modification of code as new versions of OpenGL are released, the
+decision was made not to write the code by hand but to create a program/script
+to generate it from basic information.
+
+Since the this basic information (namely the name and type of the state 
+variables, together with their minimum required value) was originally gathered
+in the form of a table (spread sheet actually) it was saved in table.txt with 
+'\n's separating the records and '\t's separating the fields.
+
+And since awk is ideal for processing that kind of files, an awk (gawk to be
+precise) script was written to generate the c++ code from the information in the
+table. e.g. instead of another c++ program.
+
+Also, because "escaped" code is more difficult to debug than normal and because
+the concept of "printing code that prints something" is confusing, as much code 
+as possible needed to be written in a standard .cpp file with the usual syntax 
+coloring instead of in an awk file contained within strings. Thus another file,
+main-base.cpp was created as a template in which awk will add the generated 
+code.
+
+Lastly, because during debugging one would need to read the code that was
+actually compiled, the awk script not only generates the code, but also newlines
+and tabs, so that the final output will be readable by both humans and 
+compilers.
+
+To summarize, 3 files (generator.awk,main-base.cpp and table.txt) are taken as 
+input by the awk interpreter and 1 is output: main.cpp.
+The latter is then compiled into "implementation constants[.exe]".
+
+
+When modifying main-base.cpp, what you see is what you get in the final
+main.cpp, except that lines containing "/* %--% */" (without the quotes) will be
+substituted with awk-generated code.
+
+When modifying table.txt each line has a different meaning according to its 
+first few letters, as described below:
+	1. empty lines are ignored.
+	2. lines starting with "GL_" are used to generate code querying and 
+	   displaying the value of one gl state variable.
+	3. likewise for lines starting with "GLU_", but they query and display glu 
+	   state variables.
+	4. lines starting with '$' insert code from the "base" file.
+	5. lines starting with '#' generate code printing a table header.
+	6. lines starting with '@' generate code printing the rest of the line.
+	7. lines starting with '%' generate code printing both the rest of the line 
+	   and a table header.
+	8. lines starting with '*' are ignored and can be used for comments.
+
+generator.awk is a usual gawk script. Of course, changing it can invalidate the
+contents of the previous 2 paragraphs. :)

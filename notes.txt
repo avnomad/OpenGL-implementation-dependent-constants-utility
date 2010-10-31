@@ -1,0 +1,18 @@
+The lines corresponding to OpenGL state variables normally have 3 fields. Except
+those about the convolution filters and the occlusion queries that have 4.
+
+Yet some of the first lines have 2 redundant fields. These fields, 4 and 5,
+contain the major and minor number of the version this state variable first 
+appeared. They may not be accurate and are ignored by the current script.
+
+
+
+The gawk of ubuntu exhibits slightly different behavior than the one for 
+windows. First $0 contains 1 more character after the last of the line. I 
+haven't figured out yet if it's a \r from the file being created in windows or
+the \n itself. Second every line needs to be ended with a tab (the field 
+separator) or else the last field will not be read correctly. It is possible
+that the above extra character is also appended to the last field. I haven't
+really looked into the matter. For now anyone who might change table.txt should
+remember to end each line with a tab. Those who will compile the project on 
+windows can safely ignore this paragraph.

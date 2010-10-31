@@ -1,3 +1,21 @@
+/*
+ *	Copyright (C) 2010  Anogeianakis Vaptistis
+ *
+ *	This program is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <cstdlib>
@@ -22,7 +40,7 @@ using std::setprecision;
 	#define PAUSE "pause"
 #endif
 
-#define esquape(A) #A
+#define escape(A) #A
 #define W 49
 #define GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX 0x9048
 #define GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX 0x9049
@@ -61,10 +79,16 @@ int main(int argc, char **argv)
 	glGetIntegerv(GL_NUM_COMPRESSED_TEXTURE_FORMATS,&nTextureFormats);
 	cout << left;
 
+	cout << setw(10) << ' ' << "Copyright (C) 2010  Anogeianakis Vaptistis\n\n";
+	cout << setw(6) << ' ' << "This program comes with ABSOLUTELY NO WARRANTY.\n";
+    cout << setw(6) << ' ' << "This is free software, and you are welcome to\n";
+	cout << setw(6) << ' ' << "redistribute it under certain conditions.\n";
+	cout << setw(6) << ' ' << "See license.txt for details.\n";
+
 
 	/* %--% */	// code will be inserted here!
 
-	cout << setw(W) << esquape(GL_EXTENSIONS) ":" << '\n';
+	cout << setw(W) << escape(GL_EXTENSIONS) ":" << '\n';
 	if(majorVersion >= 3)
 		for(int c = 0 ; c < nExtensions ; ++c)
 			cout << setw(W-15) << ' ' << glGetStringi(GL_EXTENSIONS,c) << '\n';
@@ -81,7 +105,7 @@ int main(int argc, char **argv)
 
 	/* %--% */	// code will be inserted here!
 
-	cout << setw(W) << esquape(GLU_EXTENSIONS) ":" << '\n';
+	cout << setw(W) << escape(GLU_EXTENSIONS) ":" << '\n';
 	extensions = new char[strlen((const char *)gluGetString(GLU_EXTENSIONS))+1];
 	strcpy(extensions,(const char *)gluGetString(GLU_EXTENSIONS));
 	if(e = strtok(extensions," "))
@@ -96,7 +120,7 @@ int main(int argc, char **argv)
 
 	GLint *textureFormats = new GLint[nTextureFormats];
 	glGetIntegerv(GL_COMPRESSED_TEXTURE_FORMATS,textureFormats);
-	cout << setw(W) << esquape(GL_COMPRESSED_TEXTURE_FORMATS) << setw(15) << '-';
+	cout << setw(W) << escape(GL_COMPRESSED_TEXTURE_FORMATS) << setw(15) << '-';
 	if(nTextureFormats == 0)
 		cout << "-\n";
 	else
