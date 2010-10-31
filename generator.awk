@@ -17,37 +17,43 @@ BEGIN {
 
 /^GL_/ && $3 == "int"{
 	print "\tglGetIntegerv(" $1 ",&ival);";
-	print "\tcout << setw(W) << esquape(" $1 ") << setw(15) << " $2 " << ival << '\\n';";
+	print "\tif(glGetError() == GL_NO_ERROR)";
+	print "\t\tcout << setw(W) << esquape(" $1 ") << setw(15) << " $2 " << ival << '\\n';";
 }
 
 
 /^GL_/ && $3 == "float"{
 	print "\tglGetFloatv(" $1 ",&fval);";
-	print "\tcout << setw(W) << esquape(" $1 ") << setw(15) << " $2 " << fval << '\\n';";
+	print "\tif(glGetError() == GL_NO_ERROR)";
+	print "\t\tcout << setw(W) << esquape(" $1 ") << setw(15) << " $2 " << fval << '\\n';";
 }
 
 
 /^GL_/ && $3 == "bool"{
 	print "\tglGetBooleanv(" $1 ",&bval);";
-	print "\tcout << setw(W) << esquape(" $1 ") << setw(15) << '-' << (bval?\"yes\":\"no\") << '\\n';";
+	print "\tif(glGetError() == GL_NO_ERROR)";
+	print "\t\tcout << setw(W) << esquape(" $1 ") << setw(15) << '-' << (bval?\"yes\":\"no\") << '\\n';";
 }
 
 
 /^GL_/ && $3 == "int-2"{
 	print "\tglGetIntegerv(" $1 ",iv);";
-	print "\tcout << setw(W) << esquape(" $1 ") << setw(15) << \"" $2 "\" << iv[0] << ',' << iv[1] << '\\n';";
+	print "\tif(glGetError() == GL_NO_ERROR)";
+	print "\t\tcout << setw(W) << esquape(" $1 ") << setw(15) << \"" $2 "\" << iv[0] << ',' << iv[1] << '\\n';";
 }
 
 
 /^GL_/ && $3 == "float-2"{
 	print "\tglGetFloatv(" $1 ",fv);";
-	print "\tcout << setw(W) << esquape(" $1 ") << setw(15) << \"" $2 "\" << fv[0] << ',' << fv[1] << '\\n';";
+	print "\tif(glGetError() == GL_NO_ERROR)";
+	print "\t\tcout << setw(W) << esquape(" $1 ") << setw(15) << \"" $2 "\" << fv[0] << ',' << fv[1] << '\\n';";
 }
 
 
 /^GL_/ && $3 == "string"{
-	print "\tif(glGetError() == GL_NO_ERROR)";
-	print "\t\tcout << setw(W-15) << esquape(" $1 ") \":\" << glGetString(" $1 ") << '\\n';";
+	print "\tsval = glGetString(" $1 ");";
+	print "\tif(glGetError() == GL_NO_ERROR && sval != NULL)";
+	print "\t\tcout << setw(W-15) << esquape(" $1 ") \":\" << sval << '\\n';";
 }
 
 

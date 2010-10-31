@@ -34,6 +34,7 @@ int main(int argc, char **argv)
 	} // end if
 
 	// declarations
+	const GLubyte *sval;
 	GLint ival;
 	GLfloat fval;
 	GLboolean bval;
