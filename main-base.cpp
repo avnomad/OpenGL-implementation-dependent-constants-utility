@@ -40,7 +40,6 @@ int main(int argc, char **argv)
 	GLboolean bval;
 	GLint iv[2];
 	GLfloat fv[2];
-	GLint v[3];
 	GLint nTextureFormats;
 	GLint nExtensions;
 	GLint majorVersion = 0;

@@ -40,7 +40,6 @@ int main(int argc, char **argv)
 	GLboolean bval;
 	GLint iv[2];
 	GLfloat fv[2];
-	GLint v[3];
 	GLint nTextureFormats;
 	GLint nExtensions;
 	GLint majorVersion = 0;
@@ -292,6 +291,12 @@ int main(int argc, char **argv)
 	glGetIntegerv(GL_SAMPLES,&ival);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_SAMPLES) << setw(15) << 0 << ival << '\n';
+	if(glGetQueryiv)
+	{
+		glGetQueryiv(GL_SAMPLES_PASSED,GL_QUERY_COUNTER_BITS,&ival);
+		if(glGetError() == GL_NO_ERROR)
+			cout << setw(W) << esquape(GL_SAMPLES_PASSED:GL_QUERY_COUNTER_BITS) << setw(15) << '-' << ival << '\n';
+	} // end if
 
 	cout << "\n\n" esquape(Points & Lines) "\n\n";
 	cout << setw(W) << "state variable" << setw(15) << "minimum value" << "actual value\n";
