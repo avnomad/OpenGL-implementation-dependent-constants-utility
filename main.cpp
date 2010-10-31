@@ -1,5 +1,5 @@
-#include <gl/glew.h>
-#include <gl/freeglut.h>
+#include <GL/glew.h>
+#include <GL/freeglut.h>
 #include <cstdlib>
 #include <cstring>
 
@@ -15,6 +15,12 @@ using std::right;
 #include <iomanip>
 using std::setw;
 using std::setprecision;
+
+#if defined(__linux) || defined(__unix)
+	#define PAUSE "echo 'press enter to continue...' ; read _"
+#else
+	#define PAUSE "pause"
+#endif
 
 #define esquape(A) #A
 #define W 49
@@ -103,7 +109,7 @@ int main(int argc, char **argv)
 	cout << setw(W-15) << esquape(GLU_VERSION) ":" << gluGetString(GLU_VERSION) << '\n';
 	cout << setw(W-15) << esquape(GLU_EXTENSIONS) ":" << gluGetString(GLU_EXTENSIONS) << '\n';
 
-	cout << "\n\n" esquape(Available Buffers	) "\n\n";
+	cout << "\n\n" esquape(Available Buffers) "\n\n";
 	cout << setw(W) << "state variable" << setw(15) << "minimum value" << "actual value\n";
 	glGetBooleanv(GL_RGBA_MODE,&bval);
 	if(glGetError() == GL_NO_ERROR)
@@ -229,7 +235,7 @@ int main(int argc, char **argv)
 	delete[] textureFormats;
 
 
-	cout << "\n\n" esquape(Miscellaneous	) "\n\n";
+	cout << "\n\n" esquape(Miscellaneous) "\n\n";
 	cout << setw(W) << "state variable" << setw(15) << "minimum value" << "actual value\n";
 	glGetIntegerv(GL_MAX_LIGHTS,&ival);
 	if(glGetError() == GL_NO_ERROR)
@@ -404,6 +410,6 @@ int main(int argc, char **argv)
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_CONTINUE_EXECUTION);
 	glutMainLoop();
 
-	system("PAUSE");
+	system(PAUSE);
 	return 0;
 } // end function main

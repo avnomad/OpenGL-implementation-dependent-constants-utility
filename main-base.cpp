@@ -1,5 +1,5 @@
-#include <gl/glew.h>
-#include <gl/freeglut.h>
+#include <GL/glew.h>
+#include <GL/freeglut.h>
 #include <cstdlib>
 #include <cstring>
 
@@ -15,6 +15,12 @@ using std::right;
 #include <iomanip>
 using std::setw;
 using std::setprecision;
+
+#if defined(__linux) || defined(__unix)
+	#define PAUSE "echo 'press enter to continue...' ; read _"
+#else
+	#define PAUSE "pause"
+#endif
 
 #define esquape(A) #A
 #define W 49
@@ -94,6 +100,6 @@ int main(int argc, char **argv)
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_CONTINUE_EXECUTION);
 	glutMainLoop();
 
-	system("PAUSE");
+	system(PAUSE);
 	return 0;
 } // end function main

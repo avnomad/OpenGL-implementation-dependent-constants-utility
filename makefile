@@ -1,0 +1,32 @@
+EXECUTABLE_NAME = implementation\ constants
+
+CPP_COMPILER = g++
+CPP_FLAGS = -Wall
+CPP_LIBRARIES = -lGLEW -lglut
+
+GENERATED_FILE = main.cpp
+GENERATOR = gawk
+GENERATOR_SCRIPT = generator.awk
+BASE_SOURCE = main-base.cpp
+GENERATOR_INPUT = table.txt
+
+
+
+all:	$(EXECUTABLE_NAME)
+
+clean:
+		rm $(GENERATED_FILE)
+
+distclean:	clean
+		rm $(EXECUTABLE_NAME)
+
+
+
+$(EXECUTABLE_NAME): $(GENERATED_FILE)
+		$(CPP_COMPILER) $(CPP_FLAGS) $(CPP_LIBRARIES) $(GENERATED_FILE) -o $(EXECUTABLE_NAME)
+
+$(GENERATED_FILE): $(GENERATOR_SCRIPT) $(BASE_SOURCE) $(GENERATOR_INPUT)
+		$(GENERATOR) -f $(GENERATOR_SCRIPT) -v BASE=$(BASE_SOURCE) < $(GENERATOR_INPUT) > $(GENERATED_FILE)
+
+
+.PHONY: all clean distclean
