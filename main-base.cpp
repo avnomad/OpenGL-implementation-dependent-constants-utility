@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 {
 	// glut initialization
 	glutInit(&argc,argv);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_ACCUM);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_ACCUM | GLUT_MULTISAMPLE);
 	int windowID = glutCreateWindow("Creating Geometry");
 
 	// glew initialization
@@ -43,13 +43,14 @@ int main(int argc, char **argv)
 	GLint v[3];
 	GLint nTextureFormats;
 	GLint nExtensions;
-	GLint majorVersion;
+	GLint majorVersion = 0;
 
 	// application initialization
 	glGetIntegerv(GL_NUM_EXTENSIONS,&nExtensions);
 	glGetIntegerv(GL_MAJOR_VERSION,&majorVersion);
 	glGetIntegerv(GL_NUM_COMPRESSED_TEXTURE_FORMATS,&nTextureFormats);
 	cout << left;
+
 
 	/* %--% */	// code will be inserted here!
 

@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 {
 	// glut initialization
 	glutInit(&argc,argv);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_ACCUM);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_ACCUM | GLUT_MULTISAMPLE);
 	int windowID = glutCreateWindow("Creating Geometry");
 
 	// glew initialization
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 	GLint v[3];
 	GLint nTextureFormats;
 	GLint nExtensions;
-	GLint majorVersion;
+	GLint majorVersion = 0;
 
 	// application initialization
 	glGetIntegerv(GL_NUM_EXTENSIONS,&nExtensions);
@@ -52,8 +52,8 @@ int main(int argc, char **argv)
 	cout << left;
 
 
-	cout << "\n\n" esquape(Version Information) "\n\n";
-	cout << setw(W) << "state variable" << setw(15) << "minimum value" << "actual value\n";
+
+	cout << "\n\n" esquape(GL Version Information) "\n\n";
 	sval = glGetString(GL_VENDOR);
 	if(glGetError() == GL_NO_ERROR && sval != NULL)
 		cout << setw(W-15) << esquape(GL_VENDOR) ":" << sval << '\n';
@@ -66,6 +66,7 @@ int main(int argc, char **argv)
 	sval = glGetString(GL_SHADING_LANGUAGE_VERSION);
 	if(glGetError() == GL_NO_ERROR && sval != NULL)
 		cout << setw(W-15) << esquape(GL_SHADING_LANGUAGE_VERSION) ":" << sval << '\n';
+	cout << '\n' << setw(W) << "state variable" << setw(15) << "minimum value" << "actual value\n";
 	glGetIntegerv(GL_MAJOR_VERSION,&ival);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_MAJOR_VERSION) << setw(15) << '-' << ival << '\n';
@@ -75,8 +76,6 @@ int main(int argc, char **argv)
 	glGetIntegerv(GL_CONTEXT_FLAGS,&ival);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_CONTEXT_FLAGS) << setw(15) << '-' << ival << '\n';
-	cout << setw(W-15) << esquape(GLU_VERSION) ":" << gluGetString(GLU_VERSION) << '\n';
-	cout << setw(W-15) << esquape(GLU_EXTENSIONS) ":" << gluGetString(GLU_EXTENSIONS) << '\n';
 	glGetIntegerv(GL_NUM_EXTENSIONS,&ival);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_NUM_EXTENSIONS) << setw(15) << '-' << ival << '\n';
@@ -97,6 +96,10 @@ int main(int argc, char **argv)
 		delete[] extensions;
 	} // end else
 
+
+	cout << "\n\n" esquape(GLU Version Information) "\n\n";
+	cout << setw(W-15) << esquape(GLU_VERSION) ":" << gluGetString(GLU_VERSION) << '\n';
+	cout << setw(W-15) << esquape(GLU_EXTENSIONS) ":" << gluGetString(GLU_EXTENSIONS) << '\n';
 
 	cout << "\n\n" esquape(Available Buffers	) "\n\n";
 	cout << setw(W) << "state variable" << setw(15) << "minimum value" << "actual value\n";
@@ -151,6 +154,9 @@ int main(int argc, char **argv)
 	glGetIntegerv(GL_ACCUM_ALPHA_BITS,&ival);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_ACCUM_ALPHA_BITS) << setw(15) << '-' << ival << '\n';
+	glGetIntegerv(GL_SUBPIXEL_BITS,&ival);
+	if(glGetError() == GL_NO_ERROR)
+		cout << setw(W) << esquape(GL_SUBPIXEL_BITS) << setw(15) << 4 << ival << '\n';
 
 	cout << "\n\n" esquape(Stack Depths) "\n\n";
 	cout << setw(W) << "state variable" << setw(15) << "minimum value" << "actual value\n";
@@ -229,9 +235,6 @@ int main(int argc, char **argv)
 	glGetIntegerv(GL_MAX_CLIP_DISTANCES,&ival);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_MAX_CLIP_DISTANCES) << setw(15) << 6 << ival << '\n';
-	glGetIntegerv(GL_SUBPIXEL_BITS,&ival);
-	if(glGetError() == GL_NO_ERROR)
-		cout << setw(W) << esquape(GL_SUBPIXEL_BITS) << setw(15) << 4 << ival << '\n';
 	glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE,&ival);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_MAX_RENDERBUFFER_SIZE) << setw(15) << 1024 << ival << '\n';
@@ -247,6 +250,21 @@ int main(int argc, char **argv)
 	glGetIntegerv(GL_MAX_VIEWPORT_DIMS,iv);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_MAX_VIEWPORT_DIMS) << setw(15) << "-,-" << iv[0] << ',' << iv[1] << '\n';
+	glGetConvolutionParameteriv(GL_CONVOLUTION_1D,GL_MAX_CONVOLUTION_WIDTH,&ival);
+	if(glGetError() == GL_NO_ERROR)
+		cout << setw(W) << esquape(GL_CONVOLUTION_1D:GL_MAX_CONVOLUTION_WIDTH) << setw(15) << 3 << ival << '\n';
+	glGetConvolutionParameteriv(GL_CONVOLUTION_2D,GL_MAX_CONVOLUTION_WIDTH,&ival);
+	if(glGetError() == GL_NO_ERROR)
+		cout << setw(W) << esquape(GL_CONVOLUTION_2D:GL_MAX_CONVOLUTION_WIDTH) << setw(15) << 3 << ival << '\n';
+	glGetConvolutionParameteriv(GL_CONVOLUTION_2D,GL_MAX_CONVOLUTION_HEIGHT,&ival);
+	if(glGetError() == GL_NO_ERROR)
+		cout << setw(W) << esquape(GL_CONVOLUTION_2D:GL_MAX_CONVOLUTION_HEIGHT) << setw(15) << 3 << ival << '\n';
+	glGetConvolutionParameteriv(GL_SEPARABLE_2D,GL_MAX_CONVOLUTION_WIDTH,&ival);
+	if(glGetError() == GL_NO_ERROR)
+		cout << setw(W) << esquape(GL_SEPARABLE_2D:GL_MAX_CONVOLUTION_WIDTH) << setw(15) << 3 << ival << '\n';
+	glGetConvolutionParameteriv(GL_SEPARABLE_2D,GL_MAX_CONVOLUTION_HEIGHT,&ival);
+	if(glGetError() == GL_NO_ERROR)
+		cout << setw(W) << esquape(GL_SEPARABLE_2D:GL_MAX_CONVOLUTION_HEIGHT) << setw(15) << 3 << ival << '\n';
 	glGetIntegerv(GL_MAX_ELEMENTS_INDICES,&ival);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_MAX_ELEMENTS_INDICES) << setw(15) << '-' << ival << '\n';

@@ -62,6 +62,13 @@ BEGIN {
 }
 
 
+/^GL_/ && $3 == "convolution"{
+	print "\tglGetConvolutionParameteriv(" $4 "," $1 ",&ival);";
+	print "\tif(glGetError() == GL_NO_ERROR)";
+	print "\t\tcout << setw(W) << esquape(" $4 ":" $1 ") << setw(15) << " $2 " << ival << '\\n';";
+}
+
+
 /^\$/ {
 	while(getline line < BASE > 0)
 	{
@@ -69,6 +76,16 @@ BEGIN {
 			break;
 		print line;
 	} # end while
+}
+
+
+/^#/ {
+	print "\tcout << '\\n' << setw(W) << \"state variable\" << setw(15) << \"minimum value\" << \"actual value\\n\";";
+}
+
+
+/^@/ {
+	print "\n\tcout << \"\\n\\n\" esquape(" substr($0,2) ") \"\\n\\n\";";
 }
 
 
