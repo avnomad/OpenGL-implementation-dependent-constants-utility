@@ -4,10 +4,10 @@ of addition/modification of code as new versions of OpenGL are released, the
 decision was made not to write the code by hand but to create a program/script
 to generate it from basic information.
 
-Since the this basic information (namely the name and type of the state 
-variables, together with their minimum required value) was originally gathered
-in the form of a table (spread sheet actually) it was saved in table.txt with 
-'\n's separating the records and '\t's separating the fields.
+Since this basic information (namely the name and type of the state variables,
+together with their minimum required value) was originally gathered in the form
+of a table (spread sheet actually) it was saved in table.txt with '\n's
+separating the records and '\t's separating the fields.
 
 And since awk is ideal for processing that kind of files, an awk (gawk to be
 precise) script was written to generate the c++ code from the information in the
