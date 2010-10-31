@@ -85,7 +85,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				CommandLine="copy &quot;$(TargetPath)&quot; &quot;\\Nomad-tablet\αρχεία\$(TargetFileName)&quot;"
 			/>
 		</Configuration>
 		<Configuration

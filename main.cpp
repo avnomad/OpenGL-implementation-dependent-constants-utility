@@ -250,21 +250,36 @@ int main(int argc, char **argv)
 	glGetIntegerv(GL_MAX_VIEWPORT_DIMS,iv);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_MAX_VIEWPORT_DIMS) << setw(15) << "-,-" << iv[0] << ',' << iv[1] << '\n';
-	glGetConvolutionParameteriv(GL_CONVOLUTION_1D,GL_MAX_CONVOLUTION_WIDTH,&ival);
-	if(glGetError() == GL_NO_ERROR)
-		cout << setw(W) << esquape(GL_CONVOLUTION_1D:GL_MAX_CONVOLUTION_WIDTH) << setw(15) << 3 << ival << '\n';
-	glGetConvolutionParameteriv(GL_CONVOLUTION_2D,GL_MAX_CONVOLUTION_WIDTH,&ival);
-	if(glGetError() == GL_NO_ERROR)
-		cout << setw(W) << esquape(GL_CONVOLUTION_2D:GL_MAX_CONVOLUTION_WIDTH) << setw(15) << 3 << ival << '\n';
-	glGetConvolutionParameteriv(GL_CONVOLUTION_2D,GL_MAX_CONVOLUTION_HEIGHT,&ival);
-	if(glGetError() == GL_NO_ERROR)
-		cout << setw(W) << esquape(GL_CONVOLUTION_2D:GL_MAX_CONVOLUTION_HEIGHT) << setw(15) << 3 << ival << '\n';
-	glGetConvolutionParameteriv(GL_SEPARABLE_2D,GL_MAX_CONVOLUTION_WIDTH,&ival);
-	if(glGetError() == GL_NO_ERROR)
-		cout << setw(W) << esquape(GL_SEPARABLE_2D:GL_MAX_CONVOLUTION_WIDTH) << setw(15) << 3 << ival << '\n';
-	glGetConvolutionParameteriv(GL_SEPARABLE_2D,GL_MAX_CONVOLUTION_HEIGHT,&ival);
-	if(glGetError() == GL_NO_ERROR)
-		cout << setw(W) << esquape(GL_SEPARABLE_2D:GL_MAX_CONVOLUTION_HEIGHT) << setw(15) << 3 << ival << '\n';
+	if(glGetConvolutionParameteriv)
+	{
+		glGetConvolutionParameteriv(GL_CONVOLUTION_1D,GL_MAX_CONVOLUTION_WIDTH,&ival);
+		if(glGetError() == GL_NO_ERROR)
+			cout << setw(W) << esquape(GL_CONVOLUTION_1D:GL_MAX_CONVOLUTION_WIDTH) << setw(15) << 3 << ival << '\n';
+	} // end if
+	if(glGetConvolutionParameteriv)
+	{
+		glGetConvolutionParameteriv(GL_CONVOLUTION_2D,GL_MAX_CONVOLUTION_WIDTH,&ival);
+		if(glGetError() == GL_NO_ERROR)
+			cout << setw(W) << esquape(GL_CONVOLUTION_2D:GL_MAX_CONVOLUTION_WIDTH) << setw(15) << 3 << ival << '\n';
+	} // end if
+	if(glGetConvolutionParameteriv)
+	{
+		glGetConvolutionParameteriv(GL_CONVOLUTION_2D,GL_MAX_CONVOLUTION_HEIGHT,&ival);
+		if(glGetError() == GL_NO_ERROR)
+			cout << setw(W) << esquape(GL_CONVOLUTION_2D:GL_MAX_CONVOLUTION_HEIGHT) << setw(15) << 3 << ival << '\n';
+	} // end if
+	if(glGetConvolutionParameteriv)
+	{
+		glGetConvolutionParameteriv(GL_SEPARABLE_2D,GL_MAX_CONVOLUTION_WIDTH,&ival);
+		if(glGetError() == GL_NO_ERROR)
+			cout << setw(W) << esquape(GL_SEPARABLE_2D:GL_MAX_CONVOLUTION_WIDTH) << setw(15) << 3 << ival << '\n';
+	} // end if
+	if(glGetConvolutionParameteriv)
+	{
+		glGetConvolutionParameteriv(GL_SEPARABLE_2D,GL_MAX_CONVOLUTION_HEIGHT,&ival);
+		if(glGetError() == GL_NO_ERROR)
+			cout << setw(W) << esquape(GL_SEPARABLE_2D:GL_MAX_CONVOLUTION_HEIGHT) << setw(15) << 3 << ival << '\n';
+	} // end if
 	glGetIntegerv(GL_MAX_ELEMENTS_INDICES,&ival);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_MAX_ELEMENTS_INDICES) << setw(15) << '-' << ival << '\n';
