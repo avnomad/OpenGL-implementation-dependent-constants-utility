@@ -27,6 +27,10 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description="Project Custom Build Step:"
+				CommandLine=""
+				AdditionalDependencies=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -81,6 +85,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(TargetPath)&quot; &quot;\\Nomad-tablet\αρχεία\$(TargetFileName)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -174,10 +179,38 @@
 			>
 		</Filter>
 		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			Name="base files"
 			>
+			<File
+				RelativePath=".\generator.awk"
+				>
+			</File>
+			<File
+				RelativePath=".\main-base.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\table.txt"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="generating main.cpp from table.txt,main-base.cpp according to generator.awk"
+						CommandLine="@echo on&#x0D;&#x0A;awk -f generator.awk -v BASE=main-base.cpp table.txt &gt; main.cpp&#x0D;&#x0A;"
+						AdditionalDependencies="generator.awk;main-base.cpp"
+						Outputs="main.cpp"
+					/>
+				</FileConfiguration>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
