@@ -52,6 +52,8 @@ int main(int argc, char **argv)
 	GLint nTextureFormats;
 	GLint nExtensions;
 	GLint majorVersion = 0;
+	char *extensions;
+	char *e;
 
 	// application initialization
 	glGetIntegerv(GL_NUM_EXTENSIONS,&nExtensions);
@@ -68,8 +70,7 @@ int main(int argc, char **argv)
 			cout << setw(W-15) << ' ' << glGetStringi(GL_EXTENSIONS,c) << '\n';
 	else
 	{
-		char *extensions = new char[strlen((const char *)glGetString(GL_EXTENSIONS))+1];
-		char *e;
+		extensions = new char[strlen((const char *)glGetString(GL_EXTENSIONS))+1];
 		strcpy(extensions,(const char *)glGetString(GL_EXTENSIONS));
 		if(e = strtok(extensions," "))
 			cout << setw(W-15) << ' ' << e << '\n';
@@ -77,6 +78,19 @@ int main(int argc, char **argv)
 			cout << setw(W-15) << ' ' << e << '\n';
 		delete[] extensions;
 	} // end else
+
+	/* %--% */	// code will be inserted here!
+
+	cout << setw(W) << esquape(GLU_EXTENSIONS) ":" << '\n';
+	extensions = new char[strlen((const char *)gluGetString(GLU_EXTENSIONS))+1];
+	strcpy(extensions,(const char *)gluGetString(GLU_EXTENSIONS));
+	if(e = strtok(extensions," "))
+		cout << setw(W-15) << ' ' << e << '\n';
+	else
+		cout << setw(W-15) << ' ' << "-\n";
+	while(e = strtok(NULL," "))
+		cout << setw(W-15) << ' ' << e << '\n';
+	delete[] extensions;
 
 	/* %--% */	// code will be inserted here!
 

@@ -212,6 +212,14 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
+		<Filter
+			Name="other"
+			>
+			<File
+				RelativePath=".\makefile"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

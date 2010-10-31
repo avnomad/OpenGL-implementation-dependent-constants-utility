@@ -11,7 +11,7 @@ GL_NUM_EXTENSIONS	'-'	int	3	0
 $ insert text from base document!
 @GLU Version Information
 GLU_VERSION	'-'	gluString	
-GLU_EXTENSIONS	'-'	gluString	
+$ insert text from base document!
 %Available Buffers
 GL_RGBA_MODE	'-'	bool	1	1
 GL_INDEX_MODE	'-'	bool	1	1
