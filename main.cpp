@@ -18,6 +18,9 @@ using std::setprecision;
 
 #define esquape(A) #A
 #define W 49
+#define GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX 0x9048
+#define GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX 0x9049
+
 
 int main(int argc, char **argv)
 {
@@ -384,6 +387,17 @@ int main(int argc, char **argv)
 	glGetIntegerv(GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS,&ival);
 	if(glGetError() == GL_NO_ERROR)
 		cout << setw(W) << esquape(GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS) << setw(15) << 1 << ival << '\n';
+
+	cout << "\n\n" esquape(Additional Information) "\n\n";
+	cout << setw(W) << "state variable" << setw(15) << "minimum value" << "actual value\n";
+	glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,&ival);
+	if(glGetError() == GL_NO_ERROR)
+		cout << setw(W) << esquape(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX) << setw(15) << '-' << ival << '\n';
+	glGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,&ival);
+	if(glGetError() == GL_NO_ERROR)
+		cout << setw(W) << esquape(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX) << setw(15) << '-' << ival << '\n';
+
+	cout << right << '\n' << setw(W) << "--END--\n\n";
 
 	// event handling initialization
 	glutDestroyWindow(windowID);

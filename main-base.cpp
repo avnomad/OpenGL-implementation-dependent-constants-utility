@@ -18,6 +18,9 @@ using std::setprecision;
 
 #define esquape(A) #A
 #define W 49
+#define GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX 0x9048
+#define GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX 0x9049
+
 
 int main(int argc, char **argv)
 {
@@ -83,6 +86,8 @@ int main(int argc, char **argv)
 	delete[] textureFormats;
 
 	/* %--% */	// code will be inserted here!
+
+	cout << right << '\n' << setw(W) << "--END--\n\n";
 
 	// event handling initialization
 	glutDestroyWindow(windowID);
