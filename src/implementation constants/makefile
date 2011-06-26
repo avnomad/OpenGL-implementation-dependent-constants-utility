@@ -19,7 +19,7 @@ EXECUTABLE_NAME = implementation\ constants
 
 CPP_COMPILER = g++
 CPP_FLAGS = -Wall -O3
-CPP_LIBRARIES = -lGLEW -lglut
+CPP_LIBRARIES = -lGLU -lGLEW -lglut
 
 GENERATED_FILE = main.cpp
 GENERATOR = gawk
