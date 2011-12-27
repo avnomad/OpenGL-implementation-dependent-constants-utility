@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "implementation constants", "implementation constants\implementation constants.vcproj", "{651D73AA-1904-4D21-8125-78397ED3FE78}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "implementation constants", "implementation constants\implementation constants.vcxproj", "{651D73AA-1904-4D21-8125-78397ED3FE78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
