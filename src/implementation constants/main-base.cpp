@@ -118,6 +118,7 @@ int main(int argc, char **argv)
 
 	/* %--% */	// code will be inserted here!
 
+	// may be wrong to get GL_COMPRESSED_TEXTURE_FORMATS if nTextureFormats is zero...
 	GLint *textureFormats = new GLint[nTextureFormats];
 	glGetIntegerv(GL_COMPRESSED_TEXTURE_FORMATS,textureFormats);
 	cout << setw(W) << escape(GL_COMPRESSED_TEXTURE_FORMATS) << setw(15) << '-';
