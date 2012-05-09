@@ -17,11 +17,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -29,6 +31,7 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(PropSheetDir)\optimization flags.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -100,6 +103,9 @@
     <CustomBuildStep Include="main-base.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\readme.txt" />
+    <None Include="..\architecture.txt" />
+    <None Include="..\notes.txt" />
     <None Include="generator.awk" />
     <CustomBuild Include="table.txt">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">generating main.cpp from table.txt,main-base.cpp according to generator.awk</Message>
@@ -115,10 +121,7 @@ awk -f generator.awk -v BASE=main-base.cpp table.txt &gt; main.cpp
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">generator.awk;main-base.cpp;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">main.cpp;%(Outputs)</Outputs>
     </CustomBuild>
-    <None Include="architecture.txt" />
     <None Include="makefile" />
-    <None Include="notes.txt" />
-    <None Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
