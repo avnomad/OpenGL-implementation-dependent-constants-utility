@@ -15,6 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma warning(disable : 4996)	// disable deprecation warnings for Visual Studio.
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -51,7 +52,7 @@ int main(int argc, char **argv)
 	// glut initialization
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_ACCUM | GLUT_MULTISAMPLE);
-	int windowID = glutCreateWindow("Creating Geometry");
+	int windowID = glutCreateWindow("Implementation-dependent Constants Utility");
 
 	// glew initialization
 	if(glewInit())
@@ -79,7 +80,7 @@ int main(int argc, char **argv)
 	glGetIntegerv(GL_NUM_COMPRESSED_TEXTURE_FORMATS,&nTextureFormats);
 	cout << left;
 
-	cout << setw(10) << ' ' << "Copyright (C) 2010  Anogeianakis Vaptistis\n\n";
+	cout << setw(10) << ' ' << "Copyright (C) 2010-2012  Anogeianakis Vaptistis\n\n";
 	cout << setw(6) << ' ' << "This program comes with ABSOLUTELY NO WARRANTY.\n";
     cout << setw(6) << ' ' << "This is free software, and you are welcome to\n";
 	cout << setw(6) << ' ' << "redistribute it under certain conditions.\n";

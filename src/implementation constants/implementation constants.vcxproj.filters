@@ -15,6 +15,9 @@
     <Filter Include="Other">
       <UniqueIdentifier>{5b4bd25e-8741-4587-8ea6-b30837b0436d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Documentation">
+      <UniqueIdentifier>{007e21c6-fade-4c59-b318-b6a4efd90fb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -29,19 +32,17 @@
       <Filter>Other</Filter>
     </None>
     <None Include="..\architecture.txt">
-      <Filter>Other</Filter>
+      <Filter>Documentation</Filter>
     </None>
     <None Include="..\notes.txt">
-      <Filter>Other</Filter>
+      <Filter>Documentation</Filter>
     </None>
     <None Include="..\..\readme.txt">
-      <Filter>Other</Filter>
+      <Filter>Documentation</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuildStep Include="main-base.cpp">
+    <None Include="main-base.cpp">
       <Filter>Base Files</Filter>
-    </CustomBuildStep>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="table.txt">
