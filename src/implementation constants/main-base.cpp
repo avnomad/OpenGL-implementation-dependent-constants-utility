@@ -48,21 +48,27 @@ using std::strtok;
 	#define PAUSE "pause"
 #endif
 
+#include <windows.h>
+#include <tchar.h>
+
 void printConstants();
+void createContextAndPrint(HDC gdiContext);
 
 int main(int argc, char **argv)
 {
-	// glut initialization
-	glutInit(&argc,argv);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_ACCUM | GLUT_MULTISAMPLE);
-	int windowID = glutCreateWindow("Implementation-dependent Constants Utility");
-
-	// glew initialization
-	if(glewInit())
-	{
-		cerr << "Unable to initialize glew. Exiting..." << endl;
-		exit(0);
-	} // end if
+	// fill and register a window class
+	WNDCLASS soleWindowClass;
+	soleWindowClass.style = CS_HREDRAW|CS_VREDRAW;
+	soleWindowClass.lpfnWndProc = DefWindowProc;
+	soleWindowClass.cbClsExtra = 0;
+	soleWindowClass.cbWndExtra = 0;
+	soleWindowClass.hInstance = GetModuleHandle(nullptr);
+	soleWindowClass.hIcon = nullptr;	// can be null
+	soleWindowClass.hCursor = nullptr;	// can be null
+	soleWindowClass.hbrBackground = nullptr;
+	soleWindowClass.lpszMenuName = nullptr;
+	soleWindowClass.lpszClassName = _T("OpenGLConstantsClass");
+	RegisterClass(&soleWindowClass);
 
 	// print copyright notice
 	cout << setw(8) << ' ' << "Copyright (C) 2010-2012  Vaptistis Anogeianakis\n\n";
@@ -71,17 +77,60 @@ int main(int argc, char **argv)
 	cout << setw(6) << ' ' << "redistribute it under certain conditions.\n";
 	cout << setw(6) << ' ' << "See license.txt for details.\n";
 
-	// print the actual output
-	printConstants();
 
-	// close dummy window
-	glutDestroyWindow(windowID);
-	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_CONTINUE_EXECUTION);
-	glutMainLoop();
+	// window OpenGL context
+	cout << setw(4) << ' ' << "Window OpenGL context.";
+
+	HWND window = CreateWindow(_T("OpenGLConstantsClass"),nullptr,WS_OVERLAPPEDWINDOW|WS_CLIPCHILDREN
+									|WS_CLIPSIBLINGS,320,120,640,480,nullptr,nullptr,GetModuleHandle(nullptr),nullptr);
+	HDC gdiContext = GetDC(window);
+	createContextAndPrint(gdiContext);
+
+	// memory OpenGL context
+	cout << setw(4) << ' ' << "Memory OpenGL context.";
+
+	HBITMAP gdiBitmap =	CreateCompatibleBitmap(gdiContext,2048,2048);
+	HDC gdiMemContext = CreateCompatibleDC(gdiContext);
+	// device context and window no longed required.
+	ReleaseDC(window,gdiContext);
+	DestroyWindow(window);
+	gdiBitmap = (HBITMAP)SelectObject(gdiMemContext,gdiBitmap);	// select bitmap
+	createContextAndPrint(gdiMemContext);
+	gdiBitmap = (HBITMAP)SelectObject(gdiMemContext,gdiBitmap);	// restore the default
+	DeleteDC(gdiMemContext);
+	DeleteObject(gdiBitmap);
 
 	system(PAUSE);
 	return 0;
 } // end function main
+
+
+void createContextAndPrint(HDC gdiContext)
+{
+	PIXELFORMATDESCRIPTOR pixelFormatDescription = {0};
+		pixelFormatDescription.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+		pixelFormatDescription.nVersion = 1;
+		pixelFormatDescription.dwFlags = PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER|PFD_STEREO_DONTCARE;
+		pixelFormatDescription.iPixelType = PFD_TYPE_RGBA;
+		pixelFormatDescription.cColorBits = 128;
+		pixelFormatDescription.cAlphaBits = 32;
+		pixelFormatDescription.cAccumBits = 128;
+		pixelFormatDescription.cDepthBits = 64;
+		pixelFormatDescription.cStencilBits = 32;
+		pixelFormatDescription.cAuxBuffers = 128;
+		pixelFormatDescription.iLayerType = PFD_MAIN_PLANE;
+	int pixelFormatIndex;
+	HGLRC glContext;
+
+	pixelFormatIndex = ChoosePixelFormat(gdiContext,&pixelFormatDescription);
+	if(!SetPixelFormat(gdiContext,pixelFormatIndex,&pixelFormatDescription))
+		exit(0);
+	glContext = wglCreateContext(gdiContext);
+	wglMakeCurrent(gdiContext,glContext);
+		glewInit();
+		printConstants();
+	wglDeleteContext(glContext);
+} // end function createContextAndPrint
 
 
 #define escape(A) #A
