@@ -18,11 +18,6 @@
 
 #pragma warning(disable : 4996)	// disable deprecation warnings for Visual Studio.
 
-#include <GL/glew.h>
-#include <GL/freeglut.h>
-#include <cstdlib>
-#include <cstring>
-
 #include <iostream>
 using std::cout;
 using std::cin;
@@ -36,17 +31,24 @@ using std::right;
 using std::setw;
 using std::setprecision;
 
+#include <cstdlib>
+using std::system;
+using std::exit;
+
+#include <cstring>
+using std::strcpy;
+using std::strtok;
+
+#include <GL/glew.h>
+#include <GL/freeglut.h>
+
 #if defined(__linux) || defined(__unix)
 	#define PAUSE "echo 'press enter to continue...' ; read _"
 #else
 	#define PAUSE "pause"
 #endif
 
-#define escape(A) #A
-#define W 49
-#define GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX 0x9048
-#define GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX 0x9049
-
+void printConstants();
 
 int main(int argc, char **argv)
 {
@@ -62,6 +64,33 @@ int main(int argc, char **argv)
 		exit(0);
 	} // end if
 
+	// print copyright notice
+	cout << setw(8) << ' ' << "Copyright (C) 2010-2012  Vaptistis Anogeianakis\n\n";
+	cout << setw(6) << ' ' << "This program comes with ABSOLUTELY NO WARRANTY.\n";
+    cout << setw(6) << ' ' << "This is free software, and you are welcome to\n";
+	cout << setw(6) << ' ' << "redistribute it under certain conditions.\n";
+	cout << setw(6) << ' ' << "See license.txt for details.\n";
+
+	// print the actual output
+	printConstants();
+
+	// close dummy window
+	glutDestroyWindow(windowID);
+	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_CONTINUE_EXECUTION);
+	glutMainLoop();
+
+	system(PAUSE);
+	return 0;
+} // end function main
+
+
+#define escape(A) #A
+#define W 49
+#define GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX 0x9048
+#define GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX 0x9049
+
+void printConstants()
+{
 	// declarations
 	const GLubyte *sval;
 	GLint ival;
@@ -75,18 +104,10 @@ int main(int argc, char **argv)
 	char *extensions;
 	char *e;
 
-	// application initialization
 	glGetIntegerv(GL_NUM_EXTENSIONS,&nExtensions);
 	glGetIntegerv(GL_MAJOR_VERSION,&majorVersion);
 	glGetIntegerv(GL_NUM_COMPRESSED_TEXTURE_FORMATS,&nTextureFormats);
 	cout << left;
-
-	cout << setw(8) << ' ' << "Copyright (C) 2010-2012  Vaptistis Anogeianakis\n\n";
-	cout << setw(6) << ' ' << "This program comes with ABSOLUTELY NO WARRANTY.\n";
-    cout << setw(6) << ' ' << "This is free software, and you are welcome to\n";
-	cout << setw(6) << ' ' << "redistribute it under certain conditions.\n";
-	cout << setw(6) << ' ' << "See license.txt for details.\n";
-
 
 	/* %--% */	// code will be inserted here!
 
@@ -134,13 +155,5 @@ int main(int argc, char **argv)
 
 	/* %--% */	// code will be inserted here!
 
-	cout << right << '\n' << setw(W) << "--END--\n\n";
-
-	// event handling initialization
-	glutDestroyWindow(windowID);
-	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_CONTINUE_EXECUTION);
-	glutMainLoop();
-
-	system(PAUSE);
-	return 0;
-} // end function main
+	cout << right << '\n' << setw(W) << "--END--\n\n\n";
+} // end function printConstants
