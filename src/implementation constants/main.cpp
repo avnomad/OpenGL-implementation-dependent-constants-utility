@@ -65,15 +65,15 @@ int main(int argc, char **argv)
 	RegisterClass(&soleWindowClass);
 
 	// print copyright notice
-	cout << setw(8) << ' ' << "Copyright (C) 2010-2012  Vaptistis Anogeianakis\n\n";
-	cout << setw(6) << ' ' << "This program comes with ABSOLUTELY NO WARRANTY.\n";
-    cout << setw(6) << ' ' << "This is free software, and you are welcome to\n";
-	cout << setw(6) << ' ' << "redistribute it under certain conditions.\n";
-	cout << setw(6) << ' ' << "See license.txt for details.\n";
+	cout << setw(14) << ' ' << "Copyright (C) 2010-2012  Vaptistis Anogeianakis\n\n";
+	cout << setw(14) << ' ' << "This program comes with ABSOLUTELY NO WARRANTY.\n";
+	cout << setw(14) << ' ' << "This is free software, and you are welcome to\n";
+	cout << setw(14) << ' ' << "redistribute it under certain conditions.\n";
+	cout << setw(14) << ' ' << "See license.txt for details.\n\n\n";
 
 
 	// window OpenGL context
-	cout << setw(4) << ' ' << "Window OpenGL context.";
+	cout << setw(18) << ' ' << ">>>>>>>> Window OpenGL context <<<<<<<<";
 
 	HWND window = CreateWindow(_T("OpenGLConstantsClass"),nullptr,WS_OVERLAPPEDWINDOW|WS_CLIPCHILDREN
 									|WS_CLIPSIBLINGS,320,120,640,480,nullptr,nullptr,GetModuleHandle(nullptr),nullptr);
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 	createContextAndPrint(gdiContext);
 
 	// memory OpenGL context
-	cout << setw(4) << ' ' << "Memory OpenGL context.";
+	cout << setw(18) << ' ' << ">>>>>>>> Memory OpenGL context <<<<<<<<";
 
 	HBITMAP gdiBitmap =	CreateCompatibleBitmap(gdiContext,2048,2048);
 	HDC gdiMemContext = CreateCompatibleDC(gdiContext);
@@ -121,7 +121,13 @@ void createContextAndPrint(HDC gdiContext)
 		exit(0);
 	glContext = wglCreateContext(gdiContext);
 	wglMakeCurrent(gdiContext,glContext);
-		glewInit();
-		printConstants();
+		GLenum errorCode = glewInit();
+		if(errorCode != GLEW_OK)
+		{
+			cerr << "\n\nglewInit failed with error message: " << glewGetErrorString(errorCode) << "\n" << endl;
+			cerr << "skipping to next context...\n\n" << endl;
+		}
+		else
+			printConstants();
 	wglDeleteContext(glContext);
 } // end function createContextAndPrint
