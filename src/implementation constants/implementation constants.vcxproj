@@ -153,7 +153,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <None Include="main-base.cpp" />
+    <ClCompile Include="print constants.cpp" />
+    <None Include="print constants base.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\readme.txt" />
@@ -161,32 +162,35 @@
     <None Include="..\notes.txt" />
     <None Include="generator.awk" />
     <CustomBuild Include="table.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">generating main.cpp from table.txt,main-base.cpp according to generator.awk</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">generating main.cpp from table.txt,main-base.cpp according to generator.awk</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">generating "print constants.cpp" from table.txt and "print constants base.cpp" according to generator.awk</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">generating "print constants.cpp" from table.txt and "print constants base.cpp" according to generator.awk</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%40echo on
-awk -f generator.awk -v BASE=main-base.cpp table.txt &gt; main.cpp
+awk -f generator.awk -v BASE="print constants base.cpp" table.txt &gt; "print constants.cpp"
 </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%40echo on
-awk -f generator.awk -v BASE=main-base.cpp table.txt &gt; main.cpp
+awk -f generator.awk -v BASE="print constants base.cpp" table.txt &gt; "print constants.cpp"
 </Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">generator.awk;main-base.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">generator.awk;main-base.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">main.cpp;%(Outputs)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">main.cpp;%(Outputs)</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">generating main.cpp from table.txt,main-base.cpp according to generator.awk</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">generating main.cpp from table.txt,main-base.cpp according to generator.awk</Message>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">generator.awk;print constants base.cpp</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">generator.awk;print constants base.cpp</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">print constants.cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">print constants.cpp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">generating "print constants.cpp" from table.txt and "print constants base.cpp" according to generator.awk</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">generating "print constants.cpp" from table.txt and "print constants base.cpp" according to generator.awk</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%40echo on
-awk -f generator.awk -v BASE=main-base.cpp table.txt &gt; main.cpp
+awk -f generator.awk -v BASE="print constants base.cpp" table.txt &gt; "print constants.cpp"
 </Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%40echo on
-awk -f generator.awk -v BASE=main-base.cpp table.txt &gt; main.cpp
+awk -f generator.awk -v BASE="print constants base.cpp" table.txt &gt; "print constants.cpp"
 </Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">generator.awk;main-base.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">generator.awk;main-base.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">main.cpp;%(Outputs)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">main.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">generator.awk;print constants base.cpp</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">generator.awk;print constants base.cpp</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">print constants.cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">print constants.cpp</Outputs>
     </CustomBuild>
     <None Include="makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="print constants.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

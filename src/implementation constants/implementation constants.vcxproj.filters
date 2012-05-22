@@ -23,6 +23,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="print constants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="generator.awk">
@@ -40,7 +43,7 @@
     <None Include="..\..\readme.txt">
       <Filter>Documentation</Filter>
     </None>
-    <None Include="main-base.cpp">
+    <None Include="print constants base.cpp">
       <Filter>Base Files</Filter>
     </None>
   </ItemGroup>
@@ -48,5 +51,10 @@
     <CustomBuild Include="table.txt">
       <Filter>Base Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="print constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
