@@ -141,17 +141,18 @@ void printConstants()
 
 	/* %--% */	// code will be inserted here!
 
-	// may be wrong to get GL_COMPRESSED_TEXTURE_FORMATS if nTextureFormats is zero...
-	GLint *textureFormats = new GLint[nTextureFormats];
-	glGetIntegerv(GL_COMPRESSED_TEXTURE_FORMATS,textureFormats);
 	cout << setw(W) << escape(GL_COMPRESSED_TEXTURE_FORMATS) << setw(15) << '-';
 	if(nTextureFormats == 0)
 		cout << "-\n";
 	else
+	{
+		GLint *textureFormats = new GLint[nTextureFormats];
+		glGetIntegerv(GL_COMPRESSED_TEXTURE_FORMATS,textureFormats);
 		cout << textureFormats[0] << '\n';
-	for(int c = 1 ; c < nTextureFormats ; ++c)
-		cout << setw(W+15) << ' ' << textureFormats[c] << '\n';
-	delete[] textureFormats;
+		for(int c = 1 ; c < nTextureFormats ; ++c)
+			cout << setw(W+15) << ' ' << textureFormats[c] << '\n';
+		delete[] textureFormats;
+	} // end else
 
 	/* %--% */	// code will be inserted here!
 
