@@ -18,11 +18,6 @@
 
 #pragma warning(disable : 4996)	// disable deprecation warnings for Visual Studio.
 
-#include <GL/glew.h>
-#include <GL/freeglut.h>
-#include <cstdlib>
-#include <cstring>
-
 #include <iostream>
 using std::cout;
 using std::cin;
@@ -35,6 +30,17 @@ using std::right;
 #include <iomanip>
 using std::setw;
 using std::setprecision;
+
+#include <cstdlib>
+using std::system;
+using std::exit;
+
+#include <cstring>
+using std::strcpy;
+using std::strtok;
+
+#include <GL/glew.h>
+#include <GL/freeglut.h>
 
 #if defined(__linux) || defined(__unix)
 	#define PAUSE "echo 'press enter to continue...' ; read _"
@@ -120,17 +126,18 @@ int main(int argc, char **argv)
 
 	/* %--% */	// code will be inserted here!
 
-	// may be wrong to get GL_COMPRESSED_TEXTURE_FORMATS if nTextureFormats is zero...
-	GLint *textureFormats = new GLint[nTextureFormats];
-	glGetIntegerv(GL_COMPRESSED_TEXTURE_FORMATS,textureFormats);
 	cout << setw(W) << escape(GL_COMPRESSED_TEXTURE_FORMATS) << setw(15) << '-';
 	if(nTextureFormats == 0)
 		cout << "-\n";
 	else
+	{
+		GLint *textureFormats = new GLint[nTextureFormats];
+		glGetIntegerv(GL_COMPRESSED_TEXTURE_FORMATS,textureFormats);
 		cout << textureFormats[0] << '\n';
-	for(int c = 1 ; c < nTextureFormats ; ++c)
-		cout << setw(W+15) << ' ' << textureFormats[c] << '\n';
-	delete[] textureFormats;
+		for(int c = 1 ; c < nTextureFormats ; ++c)
+			cout << setw(W+15) << ' ' << textureFormats[c] << '\n';
+		delete[] textureFormats;
+	} // end else
 
 	/* %--% */	// code will be inserted here!
 
