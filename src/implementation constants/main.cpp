@@ -42,6 +42,7 @@ using std::exit;
 #endif
 
 #include <windows.h>
+#include <Winspool.h>
 #include <tchar.h>
 
 #include "print constants.h"
@@ -69,11 +70,11 @@ int main(int argc, char **argv)
 	cout << setw(14) << ' ' << "This program comes with ABSOLUTELY NO WARRANTY.\n";
 	cout << setw(14) << ' ' << "This is free software, and you are welcome to\n";
 	cout << setw(14) << ' ' << "redistribute it under certain conditions.\n";
-	cout << setw(14) << ' ' << "See license.txt for details.\n\n\n";
+	cout << setw(14) << ' ' << "See license.txt for details.\n\n\n\n";
 
 
 	// window OpenGL context
-	cout << setw(18) << ' ' << ">>>>>>>> Window OpenGL context <<<<<<<<";
+	cout << setw(18) << ' ' << ">>>>>>>> Window OpenGL context <<<<<<<<\n";
 
 	HWND window = CreateWindow(_T("OpenGLConstantsClass"),nullptr,WS_OVERLAPPEDWINDOW|WS_CLIPCHILDREN
 									|WS_CLIPSIBLINGS,320,120,640,480,nullptr,nullptr,GetModuleHandle(nullptr),nullptr);
@@ -81,7 +82,7 @@ int main(int argc, char **argv)
 	createContextAndPrint(gdiContext);
 
 	// memory OpenGL context
-	cout << setw(18) << ' ' << ">>>>>>>> Memory OpenGL context <<<<<<<<";
+	cout << setw(18) << ' ' << ">>>>>>>> Memory OpenGL context <<<<<<<<\n";
 
 	HBITMAP gdiBitmap =	CreateCompatibleBitmap(gdiContext,2048,2048);
 	HDC gdiMemContext = CreateCompatibleDC(gdiContext);
@@ -93,6 +94,21 @@ int main(int argc, char **argv)
 	gdiBitmap = (HBITMAP)SelectObject(gdiMemContext,gdiBitmap);	// restore the default
 	DeleteDC(gdiMemContext);
 	DeleteObject(gdiBitmap);
+
+	// printer OpenGL contexts.
+	unsigned long requiredSize;
+	unsigned long nPrinters;
+	EnumPrinters(PRINTER_ENUM_LOCAL,nullptr,4,nullptr,0,&requiredSize,&nPrinters);	// get required size.
+	BYTE *printers = new BYTE[requiredSize];
+		EnumPrinters(PRINTER_ENUM_LOCAL,nullptr,4,printers,requiredSize,&requiredSize,&nPrinters);	// get printers list.
+		for(unsigned long i = 0 ; i < nPrinters ; ++i)
+		{
+			cout << setw(9) << ' ' << ">>>>>>>> OpenGL context for " << ((PRINTER_INFO_4*)printers)[i].pPrinterName << " <<<<<<<<\n";
+			gdiContext = CreateDC(nullptr,((PRINTER_INFO_4*)printers)[i].pPrinterName,nullptr,nullptr);
+				createContextAndPrint(gdiContext);
+			DeleteDC(gdiContext);
+		} // end for
+	delete[] printers;
 
 	system(PAUSE);
 	return 0;
@@ -124,8 +140,8 @@ void createContextAndPrint(HDC gdiContext)
 		GLenum errorCode = glewInit();
 		if(errorCode != GLEW_OK)
 		{
-			cerr << "\n\nglewInit failed with error message: " << glewGetErrorString(errorCode) << "\n" << endl;
-			cerr << "skipping to next context...\n\n" << endl;
+			cerr << "\n\nCall to glewInit failed with error message: " << glewGetErrorString(errorCode) << endl;
+			cerr << "Current context not supported? Skipping to next context...\n\n\n" << endl;
 		}
 		else
 			printConstants();
