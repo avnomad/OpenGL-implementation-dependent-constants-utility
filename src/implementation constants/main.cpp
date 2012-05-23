@@ -120,7 +120,7 @@ void createContextAndPrint(HDC gdiContext)
 	PIXELFORMATDESCRIPTOR pixelFormatDescription = {0};
 		pixelFormatDescription.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 		pixelFormatDescription.nVersion = 1;
-		pixelFormatDescription.dwFlags = PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER|PFD_STEREO_DONTCARE;
+		pixelFormatDescription.dwFlags = PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER_DONTCARE|PFD_STEREO_DONTCARE|PFD_DRAW_TO_BITMAP;
 		pixelFormatDescription.iPixelType = PFD_TYPE_RGBA;
 		pixelFormatDescription.cColorBits = 128;
 		pixelFormatDescription.cAlphaBits = 32;
